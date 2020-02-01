@@ -1,0 +1,29 @@
+{
+  "name": "lab-class-07",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "jest --verbose --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/401-advanced-javascript-Rashid/Lab-Class-07.git"
+  },
+  "author": "Rashid S.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/401-advanced-javascript-Rashid/Lab-Class-07/issues"
+  },
+  "homepage": "https://github.com/401-advanced-javascript-Rashid/Lab-Class-07#readme",
+  "dependencies": {
+    "eslint": "^6.8.0",
+    "express": "^4.17.1",
+    "jest": "^25.1.0",
+    "method-override": "^3.0.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2",
+    "uuid": "^3.4.0"
+  }
+}
