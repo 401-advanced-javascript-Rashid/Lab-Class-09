@@ -2,6 +2,11 @@
 
 ## Author: Rashid-Alsawalqa
 
+## Dynamic routing
+
+also called adaptive routing, is a process where a router can forward data via a different route or given destination based on the current conditions of the communication circuits within a system. 
+... Dynamic routing allows as many routes as possible to remain valid in response to the change.
+
 ## Links and Resources
 
 - [submission PR]()
