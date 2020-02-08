@@ -10,7 +10,7 @@ also called adaptive routing, is a process where a router can forward data via a
 ## Links and Resources
 
 - [submission PR](https://github.com/401-advanced-javascript-Rashid/Lab-Class-09/pull/1)
-- [ci/cd]()
+- [ci/cd](https://github.com/401-advanced-javascript-Rashid/Lab-Class-09/runs/433403835?check_suite_focus=true)
 
 ## Setup
 
