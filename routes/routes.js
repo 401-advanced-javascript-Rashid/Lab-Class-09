@@ -1,7 +1,7 @@
 'use strict';
 
-const Categories = require('../model/categories');
-const Products = require('../model/products');
+const Categories = require('../model/categories.js');
+const Products = require('../model/products.js');
 const express = require('express');
 const router = express.Router();
 
