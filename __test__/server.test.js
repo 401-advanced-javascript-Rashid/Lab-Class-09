@@ -2,13 +2,14 @@
 
 
 const { server } = require('../lib/server.js');
-const supertest = require('supertest');
-const mockRequest = supertest(server);
+const supergoose = require('@code-fellows/supergoose');
+const mockRequest = supergoose(server);
 
-describe('Sony server', () => {
+describe('Sony API', () => {
 
   /////////////////// categories ///////////////////////////////////////////////////////////////////
 
+  
   it('/categories GET request works' , ( ) => {
     return mockRequest
       .get('/categories')
@@ -19,33 +20,42 @@ describe('Sony server', () => {
 
   it('/categories POST request works with create() method' , ( ) => {
     return mockRequest
-      .post('/categories')
+      .post('/api/v1/categories')
       .send( { Cars: 'Vision-R' , HeadPhones: 'WH-1000XM3' } )
       .then(data => {
-        expect(data.status).toBe(201);
-        expect(data.body.Cars).toBe('Vision-R');
+        Object.keys({ Cars: 'Vision-R' , HeadPhones: 'WH-1000XM3' }).forEach(value => {
+          expect(data.body[value]).toEqual({ Cars: 'Vision-R' , HeadPhones: 'WH-1000XM3' }[value]);
+        });
       });
   });
 
   it('/categories PUT request works with Update() method' , ( ) => {
     return mockRequest
-      .put('/categories/Cars')
+      .put('/api/v1/categories/Cars')
       .send( { Cars: 'Vision-S' } )
       .then(data => {
-        expect(data.body.Cars).toBe('Vision-S');
-        expect(data.status).toBe(200);
+        return mockRequest.put(`/api/v1/categories/Cars/${data.body._id}`)
+          .then(data => {
+            expect(data.status).toBe(201);
+            expect(data.body.Cars).toBe('Vision-S');
+          });
       });
   });
 
 
   it('/categories DELETE request works with Delete() method' , ( ) => {
     return mockRequest
-      .delete('/categories/HeadPhones')
+      .delete('/api/v1/categories/HeadPhones')
       .then(data => {
-        expect(typeof data.body).toBe('object');
-        expect(data.status).toBe(200);
+        return mockRequest
+          .get(`/api/v1/categories/HeadPhones/${data.body._id}`)
+          .then(data => {
+            expect(data.status).toBe(200);
+            expect(data.body[1]).toBe(undefined);
+          });
       });
   });
+
 
   ///////////////////// Prodact //////////////////////////////////////////////////////////////////////////////
 
@@ -62,17 +72,16 @@ describe('Sony server', () => {
       .post('/products')
       .send( { Phones: 'xperia 1' , Entertainment: 'Playstation 4' , TV: 'X950G' } )
       .then(data => {
-        expect(data.body.Phones).toBe('xperia 1');
-        expect(data.body.Entertainment).toBe('Playstation 4');
-        expect(data.body.TV).toBe('X950G');
-        expect(data.status).toBe(201);
+        Object.keys( { Phones: 'xperia 1' , Entertainment: 'Playstation 4' , TV: 'X950G' } ).forEach(value => {
+          expect(data.body[value]).toEqual( { Phones: 'xperia 1' , Entertainment: 'Playstation 4' , TV: 'X950G' } [value]);
+        });
       });
   });
 
 
   it('/products PUT request works with Update() method' , ( ) => {
     return mockRequest
-      .put('/products/TV')
+      .put('/api/v1/products/TV')
       .send( { TV: 'Bravia' } )
       .then(data => {
         expect(data.body.TV).toBe('Bravia');
@@ -83,7 +92,7 @@ describe('Sony server', () => {
 
   it('/products DELETE request works with Delete() method' , ( ) => {
     return mockRequest
-      .delete('/products/Phones')
+      .delete('/api/v1/products/Phones')
       .then(data => {
         expect(typeof data.body).toBe('object');
         expect(data.status).toBe(200);
